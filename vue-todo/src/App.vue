@@ -7,7 +7,7 @@
       v-on:removeItem="removeOneItem" 
       v-on:toggleItem="toggleOneItem">
     </TodoList>
-    <TodoFooter></TodoFooter>
+    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
   </div>
 </template>
 
@@ -18,7 +18,6 @@ import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 
 export default {
-  name: 'App',
   data: function() {
     return {
       todoItems: []
@@ -40,6 +39,10 @@ export default {
       // 로컬 스토리지의 데이터를 갱신
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem, JSON.stringify(todoItem));
+    },
+    clearAllItems: function(){
+      localStorage.clear();
+      this.todoItems = [];
     }
   },
   created: function(){
